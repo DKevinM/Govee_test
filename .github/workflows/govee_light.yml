@@ -3,7 +3,7 @@ name: Run Govee Light Script
 on:
   workflow_dispatch:  # allows manual run
   schedule:
-    - cron: '*20,40 * * * *'  # every 20 / 40 minutes
+    - cron: '20,40 * * * *'  # every 20 / 40 minutes
     
 jobs:
   govee:
