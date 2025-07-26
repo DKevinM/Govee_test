@@ -5,20 +5,68 @@ API_KEY = os.getenv("GOVEE_API_KEY")
 DEVICE = "32:47:DD:6E:C4:86:6B:6E"
 MODEL = "H610A"
 
-# === Define AQHI thresholds and corresponding RGB colors ===
-def get_color_for_aqhi(aqhi):
-    if aqhi <= 3:
-        return {"r": 0, "g": 255, "b": 0}       # Green
-    elif aqhi <= 6:
-        return {"r": 255, "g": 255, "b": 0}     # Yellow
-    elif aqhi <= 9:
-        return {"r": 255, "g": 165, "b": 0}     # Orange
-    else:
-        return {"r": 255, "g": 0, "b": 0}       # Red
+def hex_to_rgb(hex_color):
+    """Convert HEX color (#rrggbb) to Govee-compatible RGB dict"""
+    hex_color = hex_color.lstrip("#")
+    return {
+        "r": int(hex_color[0:2], 16),
+        "g": int(hex_color[2:4], 16),
+        "b": int(hex_color[4:6], 16)
+    }
+
+
+def aqhi_to_hex(aqhi):
+    aqhi_map = {
+        "1": "#01cbff",
+        "2": "#0099cb",
+        "3": "#016797",
+        "4": "#fffe03",
+        "5": "#ffcb00",
+        "6": "#ff9835",
+        "7": "#fd6866",
+        "8": "#fe0002",
+        "9": "#cc0001",
+        "10": "#9a0100",
+        "10+": "#640100"
+    }
+
+    try:
+        aqhi_val = int(float(aqhi))
+        return aqhi_map.get(str(min(aqhi_val, 10)), "#D3D3D3") if aqhi_val <= 10 else aqhi_map["10+"]
+    except:
+        return "#D3D3D3"  # Gray fallback
+
+
+import requests
+
+def get_current_aqhi(station="Strathcona County"):
+    url = "https://data.environment.alberta.ca/EdwServices/aqhi/odata/CommunityAqhis?$format=json"
+    try:
+        response = requests.get(url)
+        data = response.json()
+        for entry in data["value"]:
+            if entry["CommunityName"] == station:
+                return entry["Aqhi"]
+        return None
+    except Exception as e:
+        print("Failed to fetch AQHI:", e)
+        return None
+
+
 
 # === Control function ===
-def set_light_color(aqhi_value):
-    color = get_color_for_aqhi(aqhi_value)
+def set_light_from_aqhi():
+    aqhi = get_current_aqhi()
+    if aqhi is None:
+        print("⚠️ AQHI not found.")
+        return
+
+    print(f"🌫️ Current AQHI: {aqhi}")
+    hex_color = aqhi_to_hex(aqhi)
+    rgb = hex_to_rgb(hex_color)
+
+    print(f"🎨 Using color {hex_color} → RGB {rgb}")
+
     url = "https://developer-api.govee.com/v1/devices/control"
     headers = {
         "Govee-API-Key": API_KEY,
@@ -29,17 +77,22 @@ def set_light_color(aqhi_value):
         "model": MODEL,
         "cmd": {
             "name": "color",
-            "value": color
+            "value": rgb
         }
     }
 
     response = requests.put(url, headers=headers, json=payload)
     if response.status_code == 200:
-        print(f"✅ Light color set for AQHI {aqhi_value}: {color}")
+        print("✅ Light updated successfully.")
     else:
-        print(f"❌ Failed to set color: {response.status_code}, {response.text}")
+        print(f"❌ Failed to update light: {response.status_code}\n{response.text}")
+
+
+if __name__ == "__main__":
+    set_light_from_aqhi()
+
 
 # === Example usage ===
-if __name__ == "__main__":
-    aqhi_value = 7  # Replace this with live AQHI later
-    set_light_color(aqhi_value)
+#if __name__ == "__main__":
+#    aqhi_value = 7  # Replace this with live AQHI later
+#    set_light_color(aqhi_value)
