@@ -1,3 +1,4 @@
+import os
 import requests
 
 API_KEY = os.getenv("GOVEE_API_KEY")
