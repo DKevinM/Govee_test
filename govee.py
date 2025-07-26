@@ -1,6 +1,6 @@
 import requests
 
-API_KEY = "your_govee_api_key_here"
+API_KEY = os.getenv("GOVEE_API_KEY")
 DEVICE = "32:47:DD:6E:C4:86:6B:6E"
 MODEL = "H610A"
 
