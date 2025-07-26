@@ -1,3 +1,6 @@
+import os
+import requests
+
 name: Run Govee Light Script
 
 on:
