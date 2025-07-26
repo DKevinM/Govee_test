@@ -1,0 +1,25 @@
+name: Run Govee Light Script
+
+on:
+  workflow_dispatch:  # allows manual run
+
+jobs:
+  govee:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run govee.py
+        env:
+          GOVEE_API_KEY: ${{ secrets.GOVEE_API_KEY }}
+        run: python govee.py
