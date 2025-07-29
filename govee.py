@@ -90,4 +90,7 @@ def set_light_from_aqhi(aqhi_override=None):
 
 # === Main Entry Point ===
 if __name__ == "__main__":
-    set_light_from_aqhi(int(aqhi_test_value) if aqhi_test_value else None)
+    aqhi_test_value = os.getenv("TEST_AQHI")
+    if aqhi_test_value:
+        print(f"🔧 TEST MODE: Using AQHI = {aqhi_test_value}")
+        set_light_from_aqhi(int(aqhi_test_value))
