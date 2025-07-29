@@ -61,7 +61,12 @@ def get_current_aqhi(station="Strathcona County"):
 #        print("⚠️ AQHI not found.")
 #        return
 
-def set_light_from_aqhi(aqhi):
+def set_light_from_aqhi():
+    aqhi = get_current_aqhi() 
+    if aqhi is None:
+        print("⚠️ AQHI not found.")
+        return
+        
     print(f"🌫️ Current AQHI: {aqhi}")
     hex_color = aqhi_to_hex(aqhi)
     rgb = hex_to_rgb(hex_color)
