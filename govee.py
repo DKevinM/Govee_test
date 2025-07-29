@@ -92,7 +92,12 @@ if __name__ == "__main__":
     set_light_from_aqhi()
 
 
-# === Example usage ===
-#if __name__ == "__main__":
-#    aqhi_value = 7  # Replace this with live AQHI later
-#    set_light_color(aqhi_value)
+## test
+if __name__ == "__main__":
+    TEST_MODE = True  # Set to False to use live data
+
+    if TEST_MODE:
+        test_aqhi = 1
+        set_light_from_aqhi(test_aqhi)
+    else:
+        set_light_from_aqhi()  # No override → uses live AQHI
