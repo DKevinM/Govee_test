@@ -91,7 +91,7 @@ def set_light_from_aqhi(aqhi):
 
 # === Main Entry Point ===
 if __name__ == "__main__":
-    set_light_from_aqhi(aqhi)
+    set_light_from_aqhi()
 
 #if __name__ == "__main__":
 #    import os
