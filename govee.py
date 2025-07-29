@@ -88,8 +88,8 @@ def set_light_from_aqhi():
         print(f"❌ Failed to update light: {response.status_code}\n{response.text}")
 
 
-if __name__ == "__main__":
-    set_light_from_aqhi()
+#if __name__ == "__main__":
+#    set_light_from_aqhi()
 
 
 ## test
