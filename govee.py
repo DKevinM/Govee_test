@@ -61,7 +61,7 @@ def get_current_aqhi(station="Strathcona County"):
 #        print("⚠️ AQHI not found.")
 #        return
 
-def set_light_from_aqhi():
+def set_light_from_aqhi(aqhi):
     print(f"🌫️ Current AQHI: {aqhi}")
     hex_color = aqhi_to_hex(aqhi)
     rgb = hex_to_rgb(hex_color)
@@ -91,7 +91,7 @@ def set_light_from_aqhi():
 
 # === Main Entry Point ===
 if __name__ == "__main__":
-    set_light_from_aqhi()
+    set_light_from_aqhi(aqhi)
 
 #if __name__ == "__main__":
 #    import os
