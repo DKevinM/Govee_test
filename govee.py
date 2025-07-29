@@ -55,12 +55,13 @@ def get_current_aqhi(station="Strathcona County"):
 
 
 # === Control function ===
-def set_light_from_aqhi(aqhi_override=None):
-    aqhi = aqhi_override or get_current_aqhi()
-    if aqhi is None:
-        print("⚠️ AQHI not found.")
-        return
+#def set_light_from_aqhi(aqhi_override=None):
+#    aqhi = aqhi_override or get_current_aqhi()
+#    if aqhi is None:
+#        print("⚠️ AQHI not found.")
+#        return
 
+def set_light_from_aqhi():
     print(f"🌫️ Current AQHI: {aqhi}")
     hex_color = aqhi_to_hex(aqhi)
     rgb = hex_to_rgb(hex_color)
@@ -90,7 +91,17 @@ def set_light_from_aqhi(aqhi_override=None):
 
 # === Main Entry Point ===
 if __name__ == "__main__":
-    aqhi_test_value = os.getenv("TEST_AQHI")
-    if aqhi_test_value:
-        print(f"🔧 TEST MODE: Using AQHI = {aqhi_test_value}")
-        set_light_from_aqhi(int(aqhi_test_value))
+    set_light_from_aqhi()
+
+#if __name__ == "__main__":
+#    import os
+#    test_val = os.getenv("TEST_AQHI", "").strip()
+#    if test_val:
+#        try:
+#            aqhi = int(test_val) if test_val != "10+" else 11
+#            print(f"TEST MODE: Sending AQHI {test_val}")
+#            set_light_from_aqhi(aqhi)
+#        except ValueError:
+#            print(f"Invalid TEST_AQHI value: {test_val}")
+#    else:
+#        print("No TEST_AQHI set — skipping test run.")
