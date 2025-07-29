@@ -55,8 +55,8 @@ def get_current_aqhi(station="Strathcona County"):
 
 
 # === Control function ===
-def set_light_from_aqhi():
-    aqhi = get_current_aqhi()
+def set_light_from_aqhi(aqhi_override=None):
+    aqhi = aqhi_override or get_current_aqhi()
     if aqhi is None:
         print("⚠️ AQHI not found.")
         return
@@ -88,16 +88,6 @@ def set_light_from_aqhi():
         print(f"❌ Failed to update light: {response.status_code}\n{response.text}")
 
 
-#if __name__ == "__main__":
-#    set_light_from_aqhi()
-
-
-## test
+# === Main Entry Point ===
 if __name__ == "__main__":
-    TEST_MODE = True  # Set to False to use live data
-
-    if TEST_MODE:
-        test_aqhi = 1
-        set_light_from_aqhi(test_aqhi)
-    else:
-        set_light_from_aqhi()  # No override → uses live AQHI
+    set_light_from_aqhi(int(aqhi_test_value) if aqhi_test_value else None)
