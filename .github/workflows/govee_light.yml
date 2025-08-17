@@ -25,4 +25,4 @@ jobs:
         env:
           GOVEE_API_KEY: ${{ secrets.GOVEE_API_KEY }}
           TEST_AQHI: "10"  # <--- test AQHI value 
-        run: python govee.py
+        #run: python govee.py
