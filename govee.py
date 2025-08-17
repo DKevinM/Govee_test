@@ -63,7 +63,7 @@ def get_current_aqhi(station="Edmonton"):
 
 def set_light_from_aqhi():
     # aqhi = get_current_aqhi() 
-    aqhi = 10   # used for testing
+    aqhi = 4   # used for testing
     if aqhi is None:
         print("⚠️ AQHI not found.")
         return
