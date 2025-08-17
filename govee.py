@@ -39,7 +39,7 @@ def aqhi_to_hex(aqhi):
 
 import requests
 
-def get_current_aqhi(station="Strathcona County"):
+def get_current_aqhi(station="Edmonton"):
     url = "https://data.environment.alberta.ca/EdwServices/aqhi/odata/CommunityAqhis?$format=json"
     try:
         response = requests.get(url)
