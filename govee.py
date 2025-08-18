@@ -87,8 +87,19 @@ def set_light_from_aqhi():
             "value": rgb
         }
     }
-
     response = requests.put(url, headers=headers, json=payload)
+
+    # Set brightness to 50%
+    payload_brightness = {
+        "device": DEVICE,
+        "model": MODEL,
+        "cmd": {
+            "name": "brightness",
+            "value": 50
+        }
+    }
+    response = requests.put(url, headers=headers, json=payload_brightness)
+
     if response.status_code == 200:
         print("✅ Light updated successfully.")
     else:
