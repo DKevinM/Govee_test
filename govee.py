@@ -30,6 +30,7 @@ def aqhi_to_hex(aqhi):
         "10+": "#640100"
     }
 
+    
     try:
         aqhi_val = int(float(aqhi))
         return aqhi_map.get(str(min(aqhi_val, 10)), "#D3D3D3") if aqhi_val <= 10 else aqhi_map["10+"]
