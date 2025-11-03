@@ -35,7 +35,7 @@ def aqhi_to_hex(aqhi):
         aqhi_val = int(float(aqhi))
         return aqhi_map.get(str(min(aqhi_val, 10)), "#D3D3D3") if aqhi_val <= 10 else aqhi_map["10+"]
     except:
-        return "#D3D3D3"  # Gray fallback
+        return "#D3D3D3"  # Gray fallback y
 
 
 import requests
