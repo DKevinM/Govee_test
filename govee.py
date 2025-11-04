@@ -30,7 +30,7 @@ def aqhi_to_hex(aqhi) -> str:
         return "#D3D3D3"  # Gray fallback
 
 
-def get_current_aqhi(station: str = "Edmonton"):
+def get_current_aqhi(station: str = "Strathcona County"):
     url = "https://data.environment.alberta.ca/EdwServices/aqhi/odata/CommunityAqhis?$format=json"
     try:
         r = requests.get(url, timeout=20)
@@ -69,7 +69,7 @@ def brightness_for_aqhi(aqhi) -> int:
     return 50
 
 # ── Main updater: updates ALL devices listed above ─────────────
-def set_all_lights_from_aqhi(station="Edmonton"):
+def set_all_lights_from_aqhi(station="Strathcona County"):
     aqhi = get_current_aqhi(station)
     if aqhi is None:
         print("AQHI not found.")
@@ -105,7 +105,7 @@ if __name__ == "__main__":
     # Uncomment ONE of these blocks
 
     # --- Normal live mode ---
-    set_all_lights_from_aqhi("Edmonton")
+    set_all_lights_from_aqhi("Strathcona County")
 
     # --- Manual color test mode ---
     # print(" Manual color test")
