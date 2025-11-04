@@ -105,19 +105,19 @@ if __name__ == "__main__":
     # Uncomment ONE of these blocks
 
     # --- Normal live mode ---
-    set_all_lights_from_aqhi("Edmonton")
+    # set_all_lights_from_aqhi("Edmonton")
 
-    # # --- Manual color test mode ---
-    # print(" Manual color test")
-    #     # "1": "#01cbff","2": "#0099cb","3": "#016797",
-    #     # "4": "#fffe03","5": "#ffcb00","6": "#ff9835",
-    #     # "7": "#fd6866","8": "#fe0002","9": "#cc0001",
-    #     # "10": "#9a0100","10+": "#640100"
-    # manual_hex = "#fd6866"  # pick your color here (#RRGGBB)
-    # rgb = hex_to_rgb(manual_hex)
-    # print(f" Testing color {manual_hex} → RGB {rgb}")
-    # for device, model, name in DEVICES:
-    #     set_power(device, model, True)
-    #     set_color_rgb(device, model, rgb)
-    #     set_brightness(device, model, 80)
-    #     print(f"  ✅ {name} set to {manual_hex}")
+    # --- Manual color test mode ---
+    print(" Manual color test")
+        # "1": "#01cbff","2": "#0099cb","3": "#016797",
+        # "4": "#fffe03","5": "#ffcb00","6": "#ff9835",
+        # "7": "#fd6866","8": "#fe0002","9": "#cc0001",
+        # "10": "#9a0100","10+": "#640100"
+    manual_hex = "#fd6866"  # pick your color here (#RRGGBB)
+    rgb = hex_to_rgb(manual_hex)
+    print(f" Testing color {manual_hex} → RGB {rgb}")
+    for device, model, name in DEVICES:
+        set_power(device, model, True)
+        set_color_rgb(device, model, rgb)
+        set_brightness(device, model, 80)
+        print(f" {name} set to {manual_hex}")
