@@ -107,7 +107,7 @@ if __name__ == "__main__":
     # --- Normal live mode ---
     #  set_all_lights_from_aqhi("Strathcona County")
 
-    --- Manual color test mode ---
+    # --- Manual color test mode ---
     print(" Manual color test")
         # "1": "#01cbff","2": "#0099cb","3": "#016797",
         # "4": "#fffe03","5": "#ffcb00","6": "#ff9835",
