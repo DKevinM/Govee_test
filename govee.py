@@ -113,7 +113,7 @@ if __name__ == "__main__":
         # "4": "#fffe03","5": "#ffcb00","6": "#ff9835",
         # "7": "#fd6866","8": "#fe0002","9": "#cc0001",
         # "10": "#9a0100","10+": "#640100"
-    manual_hex = "#fffe03"  # pick your color here (#RRGGBB)
+    manual_hex = "#0099cb"  # pick your color here (#RRGGBB)
     rgb = hex_to_rgb(manual_hex)
     print(f" Testing color {manual_hex} → RGB {rgb}")
     for device, model, name in DEVICES:
