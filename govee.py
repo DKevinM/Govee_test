@@ -105,7 +105,7 @@ if __name__ == "__main__":
     # Uncomment ONE of these blocks
 
     # --- Normal live mode ---
-    set_all_lights_from_aqhi("Strathcona County")
+    # set_all_lights_from_aqhi("Strathcona County")
 
     # --- Manual color test mode ---
     print(" Manual color test")
