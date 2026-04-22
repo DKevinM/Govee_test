@@ -62,7 +62,7 @@ def brightness_for_aqhi(aqhi) -> int:
         v = float(aqhi)
     except Exception:
         return 40
-    if v >= 7:  # high/very high
+    if v >= 7:  
         return 100
     if v >= 4:
         return 70
@@ -87,18 +87,18 @@ def set_all_lights_from_aqhi(station="Strathcona County"):
             r1 = set_color_rgb(device, model, rgb)
             r2 = set_brightness(device, model, bri)
             if r1.status_code == 200 and r2.status_code == 200:
-                print(f"  ✅ {name} ({model}) updated")
+                print(f" {name} ({model}) updated")
             else:
                 all_ok = False
-                print(f"  ❌ {name}: color {r1.status_code}, bright {r2.status_code}")
+                print(f" {name}: color {r1.status_code}, bright {r2.status_code}")
                 if r1.text: print("     resp:", r1.text)
                 if r2.text: print("     resp:", r2.text)
         except Exception as e:
             all_ok = False
-            print(f"  ❌ {name} error: {e}")
+            print(f" {name} error: {e}")
 
     if all_ok:
-        print("✨ All lights updated.")
+        print(" All lights updated.")
 
 # ── Entry point ────────────────────────────────────────────────
 if __name__ == "__main__":
