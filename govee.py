@@ -5,21 +5,21 @@ import time
 
 LAST_FILE = "last_aqhi.txt"
 
-    def has_changed(station, new_val):
-        filename = f"last_{station.replace(' ', '_')}.txt"
-    
-        try:
-            with open(filename, "r") as f:
-                old = f.read().strip()
-        except:
-            old = None
-    
-        if str(new_val) != old:
-            with open(filename, "w") as f:
-                f.write(str(new_val))
-            return True
-    
-        return False
+def has_changed(station, new_val):
+    filename = f"last_{station}.txt"
+
+    try:
+        with open(filename, "r") as f:
+            old = f.read().strip()
+    except:
+        old = None
+
+    if str(new_val) != old:
+        with open(filename, "w") as f:
+            f.write(str(new_val))
+        return True
+
+    return False
     
 
 GOVEE_CONTROL_URL = "https://developer-api.govee.com/v1/devices/control"
