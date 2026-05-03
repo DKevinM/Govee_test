@@ -28,7 +28,7 @@ jobs:
           -H "Govee-API-Key: ${{ secrets.GOVEE_API_KEY }}" \
           -H "Content-Type: application/json" \
           -d '{
-            "device": "98:17:3C:1E:B1:CC",
+            "device": "32:47:DD:6E:C4:86:6B:6E",
             "model": "H610A",
             "cmd": {
               "name": "color",
