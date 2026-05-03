@@ -82,24 +82,15 @@ def set_all_lights_from_aqhi(station="Genesee"):
 
     all_ok = True
     for device, model, name in DEVICES:
-        try:
-            set_power(device, model, True)
-            r1 = set_color_rgb(device, model, rgb)
-            r2 = set_brightness(device, model, bri)
-            if r1.status_code == 200 and r2.status_code == 200:
-                print(f" {name} ({model}) updated")
-            else:
-                all_ok = False
-                print(f" {name}: color {r1.status_code}, bright {r2.status_code}")
-                if r1.text: print("     resp:", r1.text)
-                if r2.text: print("     resp:", r2.text)
-        except Exception as e:
-            all_ok = False
-            print(f" {name} error: {e}")
+        r0 = set_power(device, model, True)
+        r1 = set_color_rgb(device, model, rgb)
+        r2 = set_brightness(device, model, 80)
+    
+        print(f"{name} power:", r0.status_code, r0.text)
+        print(f"{name} color:", r1.status_code, r1.text)
+        print(f"{name} bright:", r2.status_code, r2.text)
 
-    if all_ok:
-        print(" All lights updated.")
-
+    
 # ── Entry point ────────────────────────────────────────────────
 #if __name__ == "__main__":
     # Uncomment ONE of these blocks
@@ -113,7 +104,7 @@ def set_all_lights_from_aqhi(station="Genesee"):
          # "4": "#fffe03","5": "#ffcb00","6": "#ff9835",
          # "7": "#fd6866","8": "#fe0002","9": "#cc0001",
          # "10": "#9a0100","10+": "#640100"
-    manual_hex = "#fe0002"  # pick your color here (#RRGGBB)
+    manual_hex = "#640100"  # pick your color here (#RRGGBB)
     rgb = hex_to_rgb(manual_hex)
     print(f" Testing color {manual_hex} → RGB {rgb}")
     for device, model, name in DEVICES:
