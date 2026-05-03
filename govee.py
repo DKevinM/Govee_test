@@ -7,7 +7,7 @@ HEADERS = {"Govee-API-Key": API_KEY, "Content-Type": "application/json"}
 GOVEE_CONTROL_URL = "https://developer-api.govee.com/v1/devices/control"
 
 DEVICES: List[Tuple[str, str, str]] = [
-    ("98:17:3C:1E:B1:CC", "H610A", "Light Bar"),
+    ("32:47:DD:6E:C4:86:6B:6E", "H610A", "Light Bar"),
     #("B2:1E:98:17:3C:2C:7B:5A", "H6008", "Bulb"),
 ]
 
