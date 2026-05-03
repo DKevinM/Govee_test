@@ -30,7 +30,7 @@ def aqhi_to_hex(aqhi) -> str:
         return "#D3D3D3"  # Gray fallback
 
 
-def get_current_aqhi(station: str = "Strathcona County"):
+def get_current_aqhi(station: str = "Genesee"):
     url = "https://data.environment.alberta.ca/EdwServices/aqhi/odata/CommunityAqhis?$format=json"
     try:
         r = requests.get(url, timeout=20)
@@ -69,7 +69,7 @@ def brightness_for_aqhi(aqhi) -> int:
     return 50
 
 # ── Main updater: updates ALL devices listed above ─────────────
-def set_all_lights_from_aqhi(station="Strathcona County"):
+def set_all_lights_from_aqhi(station="Genesee"):
     aqhi = get_current_aqhi(station)
     if aqhi is None:
         print("AQHI not found.")
@@ -101,23 +101,23 @@ def set_all_lights_from_aqhi(station="Strathcona County"):
         print(" All lights updated.")
 
 # ── Entry point ────────────────────────────────────────────────
-if __name__ == "__main__":
+# if __name__ == "__main__":
     # Uncomment ONE of these blocks
 
     # --- Normal live mode ---
-    set_all_lights_from_aqhi("Strathcona County")
+    # set_all_lights_from_aqhi("Genesee")
 
     # --- Manual color test mode ---
-    # print(" Manual color test")
-    #     # "1": "#01cbff","2": "#0099cb","3": "#016797",
-    #     # "4": "#fffe03","5": "#ffcb00","6": "#ff9835",
-    #     # "7": "#fd6866","8": "#fe0002","9": "#cc0001",
-    #     # "10": "#9a0100","10+": "#640100"
-    # manual_hex = "#640100"  # pick your color here (#RRGGBB)
-    # rgb = hex_to_rgb(manual_hex)
-    # print(f" Testing color {manual_hex} → RGB {rgb}")
-    # for device, model, name in DEVICES:
-    #     set_power(device, model, True)
-    #     set_color_rgb(device, model, rgb)
-    #     set_brightness(device, model, 80)
-    #     print(f" {name} set to {manual_hex}")
+     print(" Manual color test")
+         # "1": "#01cbff","2": "#0099cb","3": "#016797",
+          "4": "#fffe03","5": "#ffcb00","6": "#ff9835",
+         # "7": "#fd6866","8": "#fe0002","9": "#cc0001",
+         # "10": "#9a0100","10+": "#640100"
+     manual_hex = "#640100"  # pick your color here (#RRGGBB)
+     rgb = hex_to_rgb(manual_hex)
+     print(f" Testing color {manual_hex} → RGB {rgb}")
+     for device, model, name in DEVICES:
+         set_power(device, model, True)
+         set_color_rgb(device, model, rgb)
+         set_brightness(device, model, 80)
+         print(f" {name} set to {manual_hex}")
