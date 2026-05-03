@@ -8,7 +8,7 @@ GOVEE_CONTROL_URL = "https://developer-api.govee.com/v1/devices/control"
 
 DEVICES: List[Tuple[str, str, str]] = [
     ("32:47:DD:6E:C4:86:6B:6E", "H610A", "Light Bar"),
-    ("B2:1E:98:17:3C:2C:7B:5A", "H6008", "Bulb"),
+    #("B2:1E:98:17:3C:2C:7B:5A", "H6008", "Bulb"),
 ]
 
 def hex_to_rgb(hex_color: str) -> dict:
@@ -101,23 +101,23 @@ def set_all_lights_from_aqhi(station="Genesee"):
         print(" All lights updated.")
 
 # ── Entry point ────────────────────────────────────────────────
-if __name__ == "__main__":
+#if __name__ == "__main__":
     # Uncomment ONE of these blocks
 
     # --- Normal live mode ---
-    set_all_lights_from_aqhi("Genesee")
+    #set_all_lights_from_aqhi("Genesee")
 
     # --- Manual color test mode ---
-    #print(" Manual color test")
+    print(" Manual color test")
          # "1": "#01cbff","2": "#0099cb","3": "#016797",
          # "4": "#fffe03","5": "#ffcb00","6": "#ff9835",
          # "7": "#fd6866","8": "#fe0002","9": "#cc0001",
          # "10": "#9a0100","10+": "#640100"
-    #manual_hex = "#fe0002"  # pick your color here (#RRGGBB)
-    #rgb = hex_to_rgb(manual_hex)
-    #print(f" Testing color {manual_hex} → RGB {rgb}")
-    #for device, model, name in DEVICES:
-    #    set_power(device, model, True)
-    #    set_color_rgb(device, model, rgb)
-    #    set_brightness(device, model, 80)
-    #    print(f" {name} set to {manual_hex}")
+    manual_hex = "#fe0002"  # pick your color here (#RRGGBB)
+    rgb = hex_to_rgb(manual_hex)
+    print(f" Testing color {manual_hex} → RGB {rgb}")
+    for device, model, name in DEVICES:
+        set_power(device, model, True)
+        set_color_rgb(device, model, rgb)
+        set_brightness(device, model, 80)
+        print(f" {name} set to {manual_hex}")
