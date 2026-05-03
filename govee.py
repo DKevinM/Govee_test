@@ -81,13 +81,17 @@ def set_all_lights_from_aqhi(station="Genesee"):
     print(f"AQHI({station}): {aqhi} → {hex_color} → RGB {rgb} | Brightness {bri}%")
 
     all_ok = True
+    
     for device, model, name in DEVICES:
         r0 = set_power(device, model, True)
-        r1 = set_color_rgb(device, model, rgb)
-        r2 = set_brightness(device, model, 80)
-    
         print(f"{name} power:", r0.status_code, r0.text)
+        time.sleep(1)
+    
+        r1 = set_color_rgb(device, model, rgb)
         print(f"{name} color:", r1.status_code, r1.text)
+        time.sleep(1)
+    
+        r2 = set_brightness(device, model, bri)
         print(f"{name} bright:", r2.status_code, r2.text)
 
     
