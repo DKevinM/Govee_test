@@ -1,6 +1,23 @@
 import os
 import requests
 from typing import List, Tuple
+import time
+
+LAST_FILE = "last_aqhi.txt"
+
+def has_changed(new_val):
+    try:
+        with open(LAST_FILE, "r") as f:
+            old = f.read().strip()
+    except:
+        old = None
+
+    if str(new_val) != old:
+        with open(LAST_FILE, "w") as f:
+            f.write(str(new_val))
+        return True
+    return False
+    
 
 API_KEY = os.getenv("GOVEE_API_KEY")
 HEADERS = {"Govee-API-Key": API_KEY, "Content-Type": "application/json"}
@@ -71,6 +88,11 @@ def brightness_for_aqhi(aqhi) -> int:
 # ── Main updater: updates ALL devices listed above ─────────────
 def set_all_lights_from_aqhi(station="Genesee"):
     aqhi = get_current_aqhi(station)
+    
+    if not has_changed(aqhi):
+        print(f"AQHI unchanged ({aqhi}) — skipping update")
+        return
+    
     if aqhi is None:
         print("AQHI not found.")
         return
