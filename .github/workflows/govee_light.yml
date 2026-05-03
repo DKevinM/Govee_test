@@ -21,6 +21,21 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
+
+      - name: Test Govee API (force RED)
+        run: |
+          curl -X PUT "https://developer-api.govee.com/v1/devices/control" \
+          -H "Govee-API-Key: ${{ secrets.GOVEE_API_KEY }}" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "device": "98:17:3C:1E:B1:CC",
+            "model": "H610A",
+            "cmd": {
+              "name": "color",
+              "value": {"r":255,"g":0,"b":0}
+            }
+          }'
+
       - name: Run govee.py
         env:
           GOVEE_API_KEY: ${{ secrets.GOVEE_API_KEY }}
