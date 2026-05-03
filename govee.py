@@ -92,7 +92,6 @@ def set_all_lights_from_aqhi(station="Genesee"):
 
     
 # ── Entry point ────────────────────────────────────────────────
-if __name__ == "__main__
+if __name__ == "__main__":
     set_all_lights_from_aqhi("Genesee")
-
 
