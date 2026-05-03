@@ -108,7 +108,10 @@ def set_all_lights_from_aqhi(station="Genesee"):
     rgb = hex_to_rgb(manual_hex)
     print(f" Testing color {manual_hex} → RGB {rgb}")
     for device, model, name in DEVICES:
-        set_power(device, model, True)
-        set_color_rgb(device, model, rgb)
-        set_brightness(device, model, 80)
-        print(f" {name} set to {manual_hex}")
+        r0 = set_power(device, model, True)
+        r1 = set_color_rgb(device, model, rgb)
+        r2 = set_brightness(device, model, 80)
+    
+        print(f"{name} power:", r0.status_code, r0.text)
+        print(f"{name} color:", r1.status_code, r1.text)
+        print(f"{name} bright:", r2.status_code, r2.text)
