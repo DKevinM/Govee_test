@@ -1,27 +1,54 @@
-name: Run Govee Light Script
+name: Govee Control
 
 on:
-  workflow_dispatch:  # allows manual run
-  schedule:
-    - cron: '20,40 * * * *'  # every 20 / 40 minutes
-    
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Choose mode"
+        required: true
+        default: "auto"
+        type: choice
+        options:
+          - auto
+          - red
+
 jobs:
   govee:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Set up Python
+        if: ${{ github.event.inputs.mode == 'auto' }}
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
       - name: Install dependencies
+        if: ${{ github.event.inputs.mode == 'auto' }}
         run: pip install requests
 
-      - name: Run govee.py
+      # 🔴 MANUAL RED MODE
+      - name: Force RED
+        if: ${{ github.event.inputs.mode == 'red' }}
+        run: |
+          curl -X PUT "https://developer-api.govee.com/v1/devices/control" \
+          -H "Govee-API-Key: ${{ secrets.GOVEE_API_KEY }}" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "device": "32:47:DD:6E:C4:86:6B:6E",
+            "model": "H610A",
+            "cmd": {
+              "name": "color",
+              "value": {"r":255,"g":0,"b":0}
+            }
+          }'
+
+      # 🟢 AUTO AQHI MODE
+      - name: Run AQHI script
+        if: ${{ github.event.inputs.mode == 'auto' }}
         env:
           GOVEE_API_KEY: ${{ secrets.GOVEE_API_KEY }}
         run: python govee.py
