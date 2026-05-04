@@ -20,6 +20,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      # ---------------------------
+      # 🟢 AUTO MODE SETUP
+      # ---------------------------
       - name: Set up Python
         if: ${{ github.event.inputs.mode == 'auto' }}
         uses: actions/setup-python@v4
@@ -30,11 +33,14 @@ jobs:
         if: ${{ github.event.inputs.mode == 'auto' }}
         run: pip install requests
 
-      # 🔴 MANUAL RED MODE
-      - name: Force RED
+      # ---------------------------
+      # 🔴 MANUAL RED MODE (DEVICE 1)
+      # ---------------------------
+      - name: Force RED (Device 1)
         if: ${{ github.event.inputs.mode == 'red' }}
         run: |
-          curl -X PUT "https://developer-api.govee.com/v1/devices/control" \
+          echo "Triggering Device 1"
+          curl -s -X PUT "https://developer-api.govee.com/v1/devices/control" \
           -H "Govee-API-Key: ${{ secrets.GOVEE_API_KEY }}" \
           -H "Content-Type: application/json" \
           -d '{
@@ -46,9 +52,33 @@ jobs:
             }
           }'
 
+      # ---------------------------
+      # 🔴 MANUAL RED MODE (DEVICE 2)
+      # ---------------------------
+      - name: Force RED (Device 2)
+        if: ${{ github.event.inputs.mode == 'red' }}
+        run: |
+          echo "Triggering Device 2"
+          curl -s -X PUT "https://developer-api.govee.com/v1/devices/control" \
+          -H "Govee-API-Key: ${{ secrets.GOVEE_API_KEY_2 }}" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "device": "1D:B0:D8:BF:C5:C6:35:1D",
+            "model": "H6173",
+            "cmd": {
+              "name": "color",
+              "value": {"r":255,"g":0,"b":0}
+            }
+          }'
+
+      # ---------------------------
       # 🟢 AUTO AQHI MODE
+      # ---------------------------
       - name: Run AQHI script
         if: ${{ github.event.inputs.mode == 'auto' }}
         env:
           GOVEE_API_KEY: ${{ secrets.GOVEE_API_KEY }}
-        run: python govee.py
+          GOVEE_API_KEY_2: ${{ secrets.GOVEE_API_KEY_2 }}
+        run: |
+          echo "Running AQHI script..."
+          python govee.py
