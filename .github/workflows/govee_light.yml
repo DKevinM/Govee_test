@@ -79,6 +79,7 @@ jobs:
         env:
           GOVEE_API_KEY: ${{ secrets.GOVEE_API_KEY }}
           GOVEE_API_KEY_2: ${{ secrets.GOVEE_API_KEY_2 }}
+          FORCE_UPDATE: "true"
         run: |
           echo "Running AQHI script..."
           python govee.py
