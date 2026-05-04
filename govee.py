@@ -26,7 +26,7 @@ GOVEE_CONTROL_URL = "https://developer-api.govee.com/v1/devices/control"
 
 DEVICES = [
     ("32:47:DD:6E:C4:86:6B:6E", "H610A", "Light Bar", "Genesee", os.getenv("GOVEE_API_KEY")),
-    #("B2:1E:98:17:3C:2C:7B:5A", "H6008", "Bulb", "Strathcona County", os.getenv("GOVEE_API_KEY_2")),
+    #("B2:1E:98:17:3C:2C:7B:5A", "H6173", "Edmonton East", "Edmonton East", os.getenv("GOVEE_API_KEY_2")),
 ]
 
 def hex_to_rgb(hex_color: str) -> dict:
