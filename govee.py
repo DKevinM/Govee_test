@@ -99,7 +99,7 @@ def brightness_for_aqhi(aqhi) -> int:
     return 50
 
 # ── Main updater: updates ALL devices listed above ─────────────
-def set_all_lights_from_aqhi():
+def set_all_lights_from_aqhi(force=False):
 
     for device, model, name, station, api_key in DEVICES:
 
@@ -113,11 +113,14 @@ def set_all_lights_from_aqhi():
             print(f"{name}: AQHI not found for {station}")
             continue
 
-
         safe_station = station.replace(" ", "_")
-        if not has_changed(safe_station, aqhi):
-            print(f"{name}: AQHI unchanged ({aqhi}) — skipping")
-            continue
+        
+        if not force:
+            if not has_changed(safe_station, aqhi):
+                print(f"{name}: AQHI unchanged ({aqhi}) — skipping")
+                continue
+        else:
+            print(f"{name}: FORCE update → AQHI {aqhi}")
 
         hex_color = aqhi_to_hex(aqhi)
         rgb = hex_to_rgb(hex_color)
@@ -139,5 +142,7 @@ def set_all_lights_from_aqhi():
     
 # ── Entry point ────────────────────────────────────────────────
 if __name__ == "__main__":
-    set_all_lights_from_aqhi()
+    force = os.getenv("FORCE_UPDATE", "false").lower() == "true"
+    print("FORCE MODE:", force)
+    set_all_lights_from_aqhi(force=force)
 
