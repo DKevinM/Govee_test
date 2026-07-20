@@ -1,6 +1,9 @@
 name: Govee Control
 
 on:
+  schedule:
+    - cron: "*/30 * * * *" 
+    
   workflow_dispatch:
     inputs:
       mode:
