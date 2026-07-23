@@ -27,13 +27,13 @@ jobs:
       # 🟢 AUTO MODE SETUP
       # ---------------------------
       - name: Set up Python
-        if: ${{ github.event.inputs.mode == 'auto' }}
+        if: ${{ github.event_name == 'schedule' || github.event.inputs.mode == 'auto' }}
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
       - name: Install dependencies
-        if: ${{ github.event.inputs.mode == 'auto' }}
+        if: ${{ github.event_name == 'schedule' || github.event.inputs.mode == 'auto' }}
         run: pip install requests
 
       # ---------------------------
@@ -78,11 +78,11 @@ jobs:
       # 🟢 AUTO AQHI MODE
       # ---------------------------
       - name: Run AQHI script
-        if: ${{ github.event.inputs.mode == 'auto' }}
+        if: ${{ github.event_name == 'schedule' || github.event.inputs.mode == 'auto' }}
         env:
           GOVEE_API_KEY: ${{ secrets.GOVEE_API_KEY }}
           GOVEE_API_KEY_2: ${{ secrets.GOVEE_API_KEY_2 }}
-          FORCE_UPDATE: "true"
+          FORCE_UPDATE: "false"
         run: |
           echo "Running AQHI script..."
           python govee.py
