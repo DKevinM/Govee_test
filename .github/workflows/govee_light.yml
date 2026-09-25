@@ -86,3 +86,4 @@ jobs:
         run: |
           echo "Running AQHI script..."
           python govee.py
+# keepalive: 2026-09-25T23:33:17+00:00 (govee_repo_keepalive.sh - restarts the schedule and resets the 60-day inactivity clock)
