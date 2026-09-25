@@ -2,7 +2,7 @@ name: Govee Control
 
 on:
   schedule:
-    - cron: "*/30 * * * *" 
+    - cron: "*/30 * * * *"
     
   workflow_dispatch:
     inputs:
@@ -21,14 +21,14 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # ---------------------------
       # 🟢 AUTO MODE SETUP
       # ---------------------------
       - name: Set up Python
         if: ${{ github.event_name == 'schedule' || github.event.inputs.mode == 'auto' }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
