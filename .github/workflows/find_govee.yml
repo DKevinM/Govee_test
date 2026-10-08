@@ -1,0 +1,27 @@
+
+name: Find Govee Devices
+
+on:
+  workflow_dispatch:
+
+jobs:
+  find-devices:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Find Govee devices
+        env:
+          GOVEE_API_KEY: ${{ secrets.GOVEE_API_KEY }}
+          GOVEE_API_KEY_2: ${{ secrets.GOVEE_API_KEY_2 }}
+        run: python find_govee.py
